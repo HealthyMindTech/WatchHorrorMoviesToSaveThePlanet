@@ -7,5 +7,17 @@
             "js": ["netflix.js"],
             "matches": ["https://www.netflix.com/*"]
         }
-    ]
+    ],
+    "permissions": [
+        "activeTab",
+        "webRequest",
+        "scripting",
+        "storage"
+    ],
+    "host_permissions": [
+        "https://www.netflix.com/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    }
 }
