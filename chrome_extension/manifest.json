@@ -1,5 +1,11 @@
 {
     "manifest_version": 3,
     "name": "MovieZap",
-    "version": "1.0.0"
-  }
+    "version": "1.0.0",
+    "content_scripts": [
+        {
+            "js": ["netflix.js"],
+            "matches": ["https://www.netflix.com/*"]
+        }
+    ]
+}
