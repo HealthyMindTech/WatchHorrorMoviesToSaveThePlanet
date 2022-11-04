@@ -1,1 +1,5 @@
-bleh
+{
+    "manifest_version": 3,
+    "name": "MovieZap",
+    "version": "1.0.0"
+  }
