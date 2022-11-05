@@ -66,8 +66,7 @@ async function getCurrentPrice() {
                 // Round to 5 decimals
                 
                 // Add the newtork price to the price
-                let networkPrice = document.getElementById('networkPrice').value;
-                console.log('Network price: ' + networkPrice);
+                let networkPrice = parseFloat(document.getElementById('networkPrice').value);
                 let totalPrice = Math.round((price + networkPrice) * 100000) / 100000;
                 document.getElementById('elPrice').value = totalPrice;
             });
