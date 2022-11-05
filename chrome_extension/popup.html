@@ -35,6 +35,28 @@
                 placeholder="0.00"
                 />
         </div>
+        <div>
+            <label for="country">Select country</label>
+            <select
+                id="countrySelect"
+                name="country"
+                >
+                <option value="FI">Finland</option>
+                <option value="SE">Sweden</option>
+                <option value="NO">Norway</option>
+                <option value="DK">Denmark</option>
+                <option value="DE">Germany</option>
+                <option value="NL">Netherlands</option>
+                <option value="BE">Belgium</option>
+                <option value="EE">Estonia</option>
+                <option value="LV">Latvia</option>
+                <option value="LT">Lithuania</option>
+                <option value="AT">Austria</option>
+                <option value="FR">France</option>
+            </select>
+            <button id="getPriceButton">Get price</button>
+            <div id="currentPrice"></div>
+        </div>
         <script src="popup.js"></script>
     </body>
 </html>
