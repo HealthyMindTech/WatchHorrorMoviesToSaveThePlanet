@@ -31,28 +31,34 @@ function calculateTitleScore(tvData, movieData, price_per_hour) {
 
 function insertScoreOnThumbnail(element, movieData, tvData, elPrice) {
   let score =  movieData ? calculateTitleScore(tvData, movieData, elPrice) : "N/A";
-  let scoreElement = document.createElement("div");
-
-  scoreElement.classList.add("movieZap-score-child");
+  let scoreElement;
   if (movieData) {
     score = Math.round(score * 10000) / 100;
     score = score + "c";
   } else {
     score = "N/A";
-    scoreElement.classList.add("missing-score");
   }
-  scoreElement.innerHTML = score;
-  element.appendChild(scoreElement);
-  element.classList.add("movieZap-score");
+  if (element.className.split(' ').indexOf("movieZap-score") !== -1) {
+    scoreElement = element.lastChild;
+    scoreElement.innerHTML = score;
+  } else {
+    scoreElement = document.createElement("div");
+    scoreElement.classList.add("movieZap-score-child");
+    element.classList.add("movieZap-score");
+    scoreElement.innerHTML = score;
+    element.appendChild(scoreElement);
+  }
+  if (score === 'N/A') {
+    if (scoreElement.className.split(' ').indexOf('missing-score') === -1) {
+      scoreElement.classList.add("missing-score");
+    }
+  }
+
 }
 
 function getAllTitleElements(forceReset) {
   if (forceReset) {
     // Remove all existing scores
-    let scoreElements = document.getElementsByClassName("movieZap-score-child");
-    while (scoreElements.length > 0) {
-      scoreElements[0].remove();
-    }
     return document.querySelectorAll(
       ".title-card [aria-label]"
     );
@@ -130,7 +136,7 @@ function scoreAllTitles() {
     } catch (e) {
       console.error(e);
     }
-    setTimeout(scoringFunction, 2000);
+    setTimeout(scoringFunction, 1000);
   };
   setTimeout(scoringFunction, 100);
 })();
