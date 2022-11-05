@@ -70,9 +70,9 @@ async function getCurrentPrice() {
                 let price = getPriceFromJson(jsonData);
                 // Round to 5 decimals
                 console.log('Price: ' + price);
-                // Add the newtork price to the price
+                // Add the network price to the price
                 let networkPrice = parseFloat(document.getElementById('networkPrice').value);
-                let totalPrice = Math.round((price + networkPrice) * 10000) / 10000;
+                let totalPrice = Math.round((price + (networkPrice || 0.0)) * 10000) / 10000;
                 document.getElementById('elPrice').value = totalPrice;
                 chrome.storage.sync.set({'elPrice': totalPrice}, function() {
                 });
@@ -105,25 +105,27 @@ function getPriceFromJson(jsonData) {
     }
 }
 
-updateSelectedTVModel();
-updateSelectedElPrice();
-updateSelectedCountry();
-updateNetworkPrice();
-document.getElementById("tvModelSelect").addEventListener("change", setTVModel);
-document.getElementById("elPrice").addEventListener("change", setElPrice);
-document.getElementById("countrySelect").addEventListener("change", setCountry);
-document.getElementById("networkPrice").addEventListener("change", setNetworkPrice);
+(function () {
+    updateSelectedTVModel();
+    updateSelectedElPrice();
+    updateSelectedCountry();
+    updateNetworkPrice();
+    document.getElementById("tvModelSelect").addEventListener("change", setTVModel);
+    document.getElementById("elPrice").addEventListener("change", setElPrice);
+    document.getElementById("countrySelect").addEventListener("change", setCountry);
+    document.getElementById("networkPrice").addEventListener("change", setNetworkPrice);
+    document.getElementById('getPriceButton').addEventListener('click', getCurrentPrice);
 
-document.getElementById('getPriceButton').addEventListener('click', getCurrentPrice);
 
-document.getElementById('spotDivToggle').addEventListener('click', function() {
-    let currentStatus = document.getElementById('spotDiv').style.display;
-    let chevron = document.getElementById('spotDivToggleChevron');
-    if (currentStatus === 'none') {
-        document.getElementById('spotDiv').style.display = 'block';
-        chevron.innerHTML = 'expand_more';
-    } else {
-        document.getElementById('spotDiv').style.display = 'none';
-        chevron.innerHTML = 'chevron_right';
-    }
-});
+    document.getElementById('spotDivToggle').addEventListener('click', function() {
+        let currentStatus = document.getElementById('spotDiv').style.display;
+        let chevron = document.getElementById('spotDivToggleChevron');
+        if (currentStatus === 'none') {
+            document.getElementById('spotDiv').style.display = 'block';
+            chevron.innerHTML = 'expand_more';
+        } else {
+            document.getElementById('spotDiv').style.display = 'none';
+            chevron.innerHTML = 'chevron_right';
+        }
+    });
+})();

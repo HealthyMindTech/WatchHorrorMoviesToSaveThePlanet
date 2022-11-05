@@ -41,17 +41,18 @@
                 <option>TCL 55P815</option>
             </select>
         </div>
-        
+
         <div>
             <label for="elPrice">Electricity Price (&euro; per kWh)</label>
             <input
-                id="elPrice"
-                name="elPrice"
-                type="number"
-                min="0"
-                step="0.0001"
-                placeholder="0.00"
-                />
+              id="elPrice"
+              name="elPrice"
+              type="number"
+              min="0"
+              step="0.0001"
+              placeholder="0.00"
+              value="0.1"
+              />
         </div>
         <div id="spotDivToggle">
             <span id="spotDivToggleChevron" class="material-symbols-outlined">
@@ -61,21 +62,23 @@
         <div id="spotDiv" style="display: none; border: 1px solid black; border-radius: 3px; padding: 3px;">
             <label
                 for="networkPrice"
-                id="networkPriceLabel"
-                >Network Charge (&euro;/kWh)</label>
+              id="networkPriceLabel"
+              >Network Charge (&euro;/kWh)</label>
             <input
-                id="networkPrice"
-                name="networkPrice"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0.00"
-                />
+              id="networkPrice"
+              name="networkPrice"
+              type="number"
+              min="0"
+              step="0.01"
+              placeholder="0.00"
+              value="0.00"
+              />
             <div>+</div>
             <label for="country">Select country</label>
             <select
-                id="countrySelect"
-                name="country"
+              id="countrySelect"
+              name="country"
+              value="FI"
                 >
                 <option value="FI">Finland</option>
                 <option value="SE">Sweden</option>
@@ -90,7 +93,7 @@
                 <option value="AT">Austria</option>
                 <option value="FR">France</option>
             </select>
-            
+
             <button id="getPriceButton">Get current spot price</button>
         </div>
         <script src="popup.js"></script>
