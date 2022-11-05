@@ -63,7 +63,9 @@ async function getCurrentPrice() {
             }, function (jsonData) {
                 console.log(jsonData);
                 let price = getPriceFromJson(jsonData);
-                document.getElementById('currentPrice').innerText = price;
+                // Round to 5 decimals
+                price = Math.round(price * 100000) / 100000;
+                document.getElementById('elPrice').value = price;
             });
         // Set to no-cors to avoid CORS errors
         // let response = await fetch(url, {mode: 'no-cors'});
