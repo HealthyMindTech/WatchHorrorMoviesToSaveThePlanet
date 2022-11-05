@@ -115,17 +115,4 @@ function getPriceFromJson(jsonData) {
     document.getElementById("countrySelect").addEventListener("change", setCountry);
     document.getElementById("networkPrice").addEventListener("change", setNetworkPrice);
     document.getElementById('getPriceButton').addEventListener('click', getCurrentPrice);
-
-
-    document.getElementById('spotDivToggle').addEventListener('click', function() {
-        let currentStatus = document.getElementById('spotDiv').style.display;
-        let chevron = document.getElementById('spotDivToggleChevron');
-        if (currentStatus === 'none') {
-            document.getElementById('spotDiv').style.display = 'block';
-            chevron.innerHTML = 'expand_more';
-        } else {
-            document.getElementById('spotDiv').style.display = 'none';
-            chevron.innerHTML = 'chevron_right';
-        }
-    });
 })();
