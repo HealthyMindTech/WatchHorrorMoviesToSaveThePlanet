@@ -12,7 +12,6 @@
     "background": {
         "service_worker": "background.js"
     },
-    "host_permissions": ["https://www.nordpoolgroup.com/api/*"],
     "permissions": [
       "storage"
     ],

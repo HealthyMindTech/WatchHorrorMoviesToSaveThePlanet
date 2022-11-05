@@ -73,15 +73,9 @@ async function getCurrentPrice() {
     let dateDay = currentCETDate.slice(8, 10);
     let dateMonth = currentCETDate.slice(5, 7);
     let dateYear = currentCETDate.slice(0, 4);
-    let url =
-      "https://www.nordpoolgroup.com/api/marketdata/page/" +
-      countryData[country].pageId +
-      "?currency=,EUR,EUR,EUR&endDate=" +
-      dateDay +
-      "-" +
-      dateMonth +
-      "-" +
-      dateYear;
+    const date = `${dateDay}-${dateMonth}-${dateYear}`;
+    const pageId = countryData[country].pageId;
+    let url = `http://34.88.229.226:3001/?page_id=${pageId}&date=${date}`;
     chrome.runtime.sendMessage(
       {
         contentScriptQuery: "getData",
