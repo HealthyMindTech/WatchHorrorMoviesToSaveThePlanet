@@ -20,7 +20,6 @@ function setBackgroundImage() {
     const imageUrl = chrome.runtime.getURL("images/background.png");
     // Set img src on the .demo-bg
     document.querySelector(".demo-bg").src = imageUrl;
-
 }
 
 function setTVModel(event) {
@@ -28,7 +27,9 @@ function setTVModel(event) {
 }
 function updateSelectedTVModel() {
   chrome.storage.sync.get("tvModel", function (data) {
-    document.getElementById("tvModelSelect").value = data.tvModel;
+    if (data && data.tvModel != null) {
+      document.getElementById("tvModelSelect").value = data.tvModel;
+    }
   });
 }
 function setElPrice(event) {
@@ -36,7 +37,9 @@ function setElPrice(event) {
 }
 function updateSelectedElPrice() {
   chrome.storage.sync.get("elPrice", function (data) {
-    document.getElementById("elPrice").value = data.elPrice;
+    if (data && data.elPrice != null) {
+      document.getElementById("elPrice").value = data.elPrice;
+    }
   });
 }
 
@@ -107,7 +110,9 @@ function setNetworkPrice(event) {
 
 function updateNetworkPrice() {
   chrome.storage.sync.get("networkPrice", function (data) {
-    document.getElementById("networkPrice").value = data.networkPrice;
+    if (data && data.networkPrice != null) {
+      document.getElementById("networkPrice").value = data.networkPrice;
+    }
   });
 }
 
