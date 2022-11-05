@@ -3,7 +3,8 @@
     "name": "Watch Horror Movies To Save The Planet (WHMTSTP)",
     "version": "1.0.0",
     "content_scripts": [
-        {
+        {   
+            "css": ["netflix.css"],
             "js": ["movieData.js", "netflix.js"],
             "matches": ["https://www.netflix.com/*"]
         }

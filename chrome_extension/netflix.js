@@ -32,14 +32,20 @@ function calculateTitleScore(tvData, movieData, price_per_hour) {
 async function insertScoreOnThumbnail(element, tvData, elPrice) {
   let title = element.getAttribute("aria-label");
   let movieData = movieDatabase[title];
+  let scoreElement = document.createElement("div");
+  scoreElement.classList.add("movieZap-score-child");
   let score;
   if (movieData) {
     score = await calculateTitleScore(tvData, movieData, elPrice);
+    // Round to 4 and multiply by 100
+    score = Math.round(score * 10000) / 100;
+    score = score + "c";
   } else {
     score = "N/A";
+    scoreElement.classList.add("missing-score");
   }
-  let scoreElement = document.createElement("div");
-  scoreElement.classList.add("movieZap-score-child");
+  
+  
   scoreElement.innerHTML = score;
   element.appendChild(scoreElement);
   element.classList.add("movieZap-score");
