@@ -58,6 +58,9 @@ function updateSelectedCountry() {
 
 async function getCurrentPrice() {
   chrome.storage.sync.get("country", async function (data) {
+    // Add loading class
+    document.getElementById("getPriceButton").classList.add("loading");
+
     let country = data.country;
     if (!country) {
       country = "FI";
@@ -93,6 +96,8 @@ async function getCurrentPrice() {
         let totalPrice =
             Math.round((price + (networkPrice || 0.0)) * 10000) / 10000;
         document.getElementById("elPrice").value = totalPrice;
+        // Remove loading class
+        document.getElementById("getPriceButton").classList.remove("loading");
         chrome.storage.sync.set({ elPrice: totalPrice }, function () {});
       }
     );
