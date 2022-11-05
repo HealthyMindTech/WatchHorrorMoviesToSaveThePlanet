@@ -2,7 +2,33 @@
   <head>
     <title>MovieZap</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap" rel="stylesheet">
     <style>
+      body {
+        background-color: #1a1a1a;
+        color: #ddd;
+        font-weight: bold;
+        overflow: hidden;
+        position: relative;
+        margin: 0;
+      }
+
+      .demo-bg {
+        opacity: 0.1;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      #main {
+        position: relative;
+        margin: 10px 0;
+      }
+
       .material-symbols-outlined {
           font-variation-settings:
               'FILL' 0,
@@ -16,92 +42,134 @@
           float: left;
           clear: left;
           width: 150px;
-          text-align: left;
+          text-align: right;
       }
 
-      input, #tvModelSelect {
+      input, #tvModelSelect, #countrySelect, button {
+          background: rgba(255,255,255,0.1);
           display: inline-block;
-          width: 250px;
-          float: left;
+          color: #ccc;
+          border: none;
+          margin: 0 auto 0 0;
+          position: relative;
+          display: block;
+          outline: none;
+          padding: 5px;
+          color: #ddd;
+          -webkit-box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
+          box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
+      }
+      .title {
+          font-size: 20px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          margin-top: 0px;
+          font-family: 'Carter One', cursive;
+          color:#e50914;
+          text-shadow: 0px 0px 3px #000;
+
+      }
+      .input-row {
+        display: flex; 
+        flex-direction: row; 
+        align-items: center;
+        margin-bottom: 10px;
+        width: 100%;
+      }
+      .w-half {
+        width: 45%;
+        padding-right: 15px;
       }
 
     </style>
   </head>
-  <body style="width: 450px">
-    <h3 style="text-align: center">Watch Horror Movies to Save the Planet</h3>
-    <div style="margin: 10px">
-      <label for="tvModel">TV Model</label>
-      <select
-        id="tvModelSelect"
-        name="tvModel">
-        <option>LG OLED55BXPUA</option>
-        <option>TCL 65P610</option>
-        <option>LG 75UN7070PUC</option>
-        <option>Samsung QN55Q80AAFXZA</option>
-        <option>Samsung UN86TU9000FXZA</option>
-        <option>Samsung QN75QN900AFXZC</option>
-        <option>Samsung QN43Q60BAFXZC</option>
-        <option>Samsung QN85QN85AAFXZC</option>
-        <option>LG 60UN7000PUB</option>
-        <option>LG 82UN8570PUC</option>
-        <option>LG 55UN7000PUB</option>
-        <option>TCL 50P610</option>
-        <option>TCL 55P815</option>
-      </select>
-    </div>
+  <body style="width: 430px; display: flex; flex-direction: column;">
+    <img
+      class="demo-bg"
+      alt=""
+    >
+    <div id="main">
+      <h3 style="text-align: center" class="title">Watch Horror Movies to Save the Planet</h3>
+      <div class="input-row">
+        <label for="tvModel" class="w-half">TV Model</label>
+        <select
+          id="tvModelSelect"
+          name="tvModel">
+          <option>LG OLED55BXPUA</option>
+          <option>TCL 65P610</option>
+          <option>LG 75UN7070PUC</option>
+          <option>Samsung QN55Q80AAFXZA</option>
+          <option>Samsung UN86TU9000FXZA</option>
+          <option>Samsung QN75QN900AFXZC</option>
+          <option>Samsung QN43Q60BAFXZC</option>
+          <option>Samsung QN85QN85AAFXZC</option>
+          <option>LG 60UN7000PUB</option>
+          <option>LG 82UN8570PUC</option>
+          <option>LG 55UN7000PUB</option>
+          <option>TCL 50P610</option>
+          <option>TCL 55P815</option>
+        </select>
+      </div>
 
-    <div style="margin: 10px; margin-top: 20px">
-      <label
-        for="networkPrice"
-        id="networkPriceLabel"
-        >
-        Network Charge (&euro;/kWh)</label>
-      <input
-        id="networkPrice"
-        name="networkPrice"
-        type="number"
-        min="0"
-        step="0.01"
-        placeholder="0.00"
-        value="0.05"
-        />
-    </div>
+      <div class="input-row">
+        <label
+          for="networkPrice"
+          id="networkPriceLabel"
+          class="w-half"
+          >
+          Network Charge (&euro;/kWh)</label>
+        <input
+          id="networkPrice"
+          name="networkPrice"
+          type="number"
+          min="0"
+          step="0.01"
+          placeholder="0.00"
+          value="0.05"
+          />
+      </div>
 
-    <div style="margin: 10px; margin-top: 20px">
-      <label for="elPrice">Electricity Price (&euro; per kWh)</label>
-      <input
-        id="elPrice"
-        name="elPrice"
-        type="number"
-        min="0"
-        step="0.0001"
-        placeholder="0.00"
-        value="0.1"
-        />
-    </div>
+      <div class="input-row">
+        <label for="elPrice" class="w-half">Electricity Price (&euro;/kWh)</label>
+        <input
+          id="elPrice"
+          name="elPrice"
+          type="number"
+          min="0"
+          step="0.0001"
+          placeholder="0.00"
+          value="0.1"
+          />
+      </div>
 
-    <div style="margin: 10px; margin-top: 20px">
-      <button id="getPriceButton">Get spot price</button>
-      for
-      <select
-        style="display: inline"
-        id="countrySelect"
-        name="country"
-        value="FI"
-        >
-        <option value="FI">Finland</option>
-        <option value="SE">Sweden</option>
-        <option value="NO">Norway</option>
-        <option value="DK">Denmark</option>
-        <option value="DE">Germany</option>
-        <option value="NL">Netherlands</option>
-        <option value="BE">Belgium</option>
-        <option value="EE">Estonia</option>
-        <option value="LV">Latvia</option>
-        <option value="LT">Lithuania</option>
-        <option value="AT">Austria</option>
-        <option value="FR">France</option>
-      </select>
+      <div class="input-row">
+        <div class="w-half" style="text-align: right;">
+          Spot price for
+        </div>
+        <div style="display: flex; flex-direction: row;">
+
+          <select
+            style="display: inline; margin-right: 15px;"
+            id="countrySelect"
+            name="country"
+            value="FI"
+            >
+            <option value="FI">Finland</option>
+            <option value="SE">Sweden</option>
+            <option value="NO">Norway</option>
+            <option value="DK">Denmark</option>
+            <option value="DE">Germany</option>
+            <option value="NL">Netherlands</option>
+            <option value="BE">Belgium</option>
+            <option value="EE">Estonia</option>
+            <option value="LV">Latvia</option>
+            <option value="LT">Lithuania</option>
+            <option value="AT">Austria</option>
+            <option value="FR">France</option>
+          </select>
+          <button id="getPriceButton">Get</button>
+        </div>
+      </div>
     </div>
     <script src="popup.js"></script>
   </body>

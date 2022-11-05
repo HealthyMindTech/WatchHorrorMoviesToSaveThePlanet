@@ -22,5 +22,11 @@
                 "128": "icons/icon_with_rounded_128.png" },
     "action": {
         "default_popup": "popup.html"
-    }
+    },
+    "web_accessible_resources": [
+        {
+            "resources": ["images/main.png"],
+            "matches": ["https://www.netflix.com/*"]
+        }
+    ]
 }

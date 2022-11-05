@@ -15,6 +15,14 @@ const countryData = {
   NO: { pageId: 23, entityName: "Oslo", hourDiff: 0 },
 };
 
+function setBackgroundImage() {
+    // Get image url from extension folder
+    const imageUrl = chrome.runtime.getURL("images/background.png");
+    // Set img src on the .demo-bg
+    document.querySelector(".demo-bg").src = imageUrl;
+
+}
+
 function setTVModel(event) {
   chrome.storage.sync.set({ tvModel: event.target.value }, function () {});
 }
@@ -125,6 +133,7 @@ function getPriceFromJson(jsonData) {
 }
 
 (function () {
+  setBackgroundImage();
   updateSelectedTVModel();
   updateSelectedElPrice();
   updateSelectedCountry();
