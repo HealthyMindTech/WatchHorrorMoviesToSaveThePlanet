@@ -21,35 +21,29 @@ function calculateTitleScore(tvData, movieData, price_per_hour) {
   let movie_length_hours = movieData.runtime_hours;
   return (
     (((min_power_consumption +
-      ((max_power_consumption - min_power_consumption) * pixels_cost) /
-        (2850.0 * 480)) *
+       ((max_power_consumption - min_power_consumption) * pixels_cost) /
+       (2850.0 * 480)) *
       movie_length_hours) /
-      1000) *
-    price_per_hour
+     1000) *
+      price_per_hour
   );
 }
 
-async function insertScoreOnThumbnail(element, tvData, elPrice) {
-  let title = element.getAttribute("aria-label");
-  let movieData = movieDatabase[title];
+function insertScoreOnThumbnail(element, movieData, tvData, elPrice) {
+  let score =  movieData ? calculateTitleScore(tvData, movieData, elPrice) : "N/A";
   let scoreElement = document.createElement("div");
+
   scoreElement.classList.add("movieZap-score-child");
-  let score;
   if (movieData) {
-    score = await calculateTitleScore(tvData, movieData, elPrice);
-    // Round to 4 and multiply by 100
     score = Math.round(score * 10000) / 100;
     score = score + "c";
   } else {
     score = "N/A";
     scoreElement.classList.add("missing-score");
   }
-  
-  
   scoreElement.innerHTML = score;
   element.appendChild(scoreElement);
   element.classList.add("movieZap-score");
-  // scoredTitles.add(title);
 }
 
 function getAllTitleElements(forceReset) {
@@ -67,7 +61,7 @@ function getAllTitleElements(forceReset) {
       ".title-card [aria-label]:not(.movieZap-score)"
     );
   }
-  
+
 }
 
 let scoringInProgress = false;
@@ -89,31 +83,45 @@ async function scoreAllTitles() {
       // Detect all titles on the page
       let titles = getAllTitleElements(resetScore);
 
+      if (!titles.length) {
+        return;
+      }
+
       // Test database connection
-      let url = "http://34.88.229.226:3000/movies";
-      console.log("Testing database connection...");
+      const escapedTitles = []
+      for (const titleElement of titles) {
+        const title = titleElement.getAttribute("aria-label");
+        if (title.indexOf('"') === -1) {
+          escapedTitles.push(`"${title}"`);
+        }
+      }
+
+      const allTitles = encodeURIComponent(escapedTitles.join(','));
+
+      let url = `http://34.88.229.226:3000/movies?title=in.(${allTitles})`;
+      console.log(url);
       chrome.runtime.sendMessage(
         {
           contentScriptQuery: "getData",
           url: url,
         },
-        function (jsonData) {
-          console.log("got data");
-          console.log(jsonData);
-        }
-      );
+        (jsonData) => {
+          const indexedData = {}
+          for (const i of jsonData) {
+            indexedData[i.title] = i;
+          }
+          let tvData = tvModels[scoringTvModel];
+          // Score all new titles
+          for (let i = 0; i < titles.length; i++) {
+            const titleElement = titles[i];
+            const title = titleElement.getAttribute('aria-label');
+            const movieData = indexedData[title]
+            insertScoreOnThumbnail(titleElement, movieData, tvData, scoringPrice);
+          }
+        });
 
       // Ignore titles that have already been scored.
       // titles = Array.from(titles).filter(title => !scoredTitles.has(title.getAttribute('aria-label')));
-      console.log("Found " + titles.length + " new titles.");
-      if (titles.length > 0) {
-        let tvData = tvModels[scoringTvModel];
-        // Score all new titles
-        for (let i = 0; i < titles.length; i++) {
-          let title_element = titles[i];
-          await insertScoreOnThumbnail(title_element, tvData, scoringPrice);
-        }
-      }
 
       scoringInProgress = false;
       console.log("Scoring done.");
