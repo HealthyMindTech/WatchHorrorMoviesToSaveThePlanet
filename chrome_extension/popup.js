@@ -70,12 +70,6 @@ async function getCurrentPrice() {
                 let totalPrice = Math.round((price + networkPrice) * 100000) / 100000;
                 document.getElementById('elPrice').value = totalPrice;
             });
-        // Set to no-cors to avoid CORS errors
-        // let response = await fetch(url, {mode: 'no-cors'});
-        // let jsonData = await response.json();
-        // console.log(jsonData);
-        // let price = jsonData.data[0].values[0].value;
-        // document.getElementById('currentPrice').innerText = price;
     });
 }
 
