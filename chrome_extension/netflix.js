@@ -39,20 +39,32 @@ async function insertScoreOnThumbnail(element, tvData, elPrice) {
     score = "N/A";
   }
   let scoreElement = document.createElement("div");
+  scoreElement.classList.add("movieZap-score-child");
   scoreElement.innerHTML = score;
   element.appendChild(scoreElement);
   element.classList.add("movieZap-score");
   // scoredTitles.add(title);
 }
 
-function getAllTitleElements() {
-  return document.querySelectorAll(
-    ".title-card [aria-label]:not(.movieZap-score)"
-  );
+function getAllTitleElements(forceReset) {
+  if (forceReset) {
+    // Remove all existing scores
+    let scoreElements = document.getElementsByClassName("movieZap-score-child");
+    while (scoreElements.length > 0) {
+      scoreElements[0].remove();
+    }
+    return document.querySelectorAll(
+      ".title-card [aria-label]"
+    );
+  } else {
+    return document.querySelectorAll(
+      ".title-card [aria-label]:not(.movieZap-score)"
+    );
+  }
+  
 }
 
 let scoringInProgress = false;
-let scoredTitles = new Set();
 let scoringPrice = 0.1; // If the price or model changes, re-score all titles
 let scoringTvModel = "LG OLED55BXPUA";
 
@@ -69,7 +81,7 @@ async function scoreAllTitles() {
         scoringTvModel = data.tvModel;
       }
       // Detect all titles on the page
-      let titles = getAllTitleElements(force);
+      let titles = getAllTitleElements(resetScore);
 
       // Test database connection
       let url = "http://34.88.229.226:3000/movies";
