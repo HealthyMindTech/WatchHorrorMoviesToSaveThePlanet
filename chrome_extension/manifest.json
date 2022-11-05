@@ -9,15 +9,10 @@
         }
     ],
     "permissions": [
-        "activeTab",
-        "webRequest",
-        "scripting",
+        "tabs",
         "storage"
     ],
-    "host_permissions": [
-        "https://www.netflix.com/*"
-    ],
-    "background": {
-        "service_worker": "background.js"
+    "action": {
+        "default_popup": "popup.html"
     }
 }

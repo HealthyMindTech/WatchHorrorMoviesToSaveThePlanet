@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>MovieZap</title>
+    </head>
+    <body>
+      <!-- <button id="sampleSecond" value="0.1">Sample Second</button>
+      <button id="min15" value="15">15 Minutes</button>
+      <button id="min30" value="30">30 Minutes</button>
+      <button id="cancelAlarm">Cancel Alarm</button> -->
+      <!-- Show selected TV model -->
+        <!-- <div id="tvModel"></div> -->
+      <!-- Selector for TV model -->
+        <div>
+            <label for="tvModel">TV Model</label>
+            <select
+                id="tvModelSelect"
+                name="tvModel"
+                >
+                <option value="0">Select TV Model</option>
+                <option value="1">Samsung</option>
+                <option value="2">LG</option>
+                <option value="3">Sony</option>
+                <option value="4">Panasonic</option>
+                <option value="5">Toshiba</option>
+            </select>
+        </div>
+        <div>
+            <label for="elPrice">Electricity Price (€ per kWh)</label>
+            <input
+                id="elPrice"
+                name="elPrice"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+                />
+        </div>
+        <script src="popup.js"></script>
+    </body>
+</html>
