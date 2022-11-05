@@ -75,7 +75,7 @@ let scoringPrice = 0.1; // If the price or model changes, re-score all titles
 let scoringTvModel = "LG OLED55BXPUA";
 
 function scoreAllTitles() {
-  console.log("Scoring in progress...");
+  // console.log("Scoring in progress...");
   chrome.storage.sync.get(["elPrice", "tvModel"], function (data) {
     let resetScore = false;
     if (scoringPrice !== data.elPrice || scoringTvModel !== data.tvModel) {
