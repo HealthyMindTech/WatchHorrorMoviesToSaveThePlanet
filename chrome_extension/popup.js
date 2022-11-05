@@ -55,7 +55,12 @@ async function getCurrentPrice() {
             country = 'FI';
         }
         console.log('Country: ' + country);
-        let url = 'https://www.nordpoolgroup.com/api/marketdata/page/' + countryData[country].pageId;
+        // in YYYY-MM-DD format
+        let currentCETDate = new Date().toLocaleString( 'sv', { timeZoneName: 'short', timeZone: 'Europe/Berlin' } ).slice(0, 10);
+        let dateDay = currentCETDate.slice(8, 10);
+        let dateMonth = currentCETDate.slice(5, 7);
+        let dateYear = currentCETDate.slice(0, 4);
+        let url = 'https://www.nordpoolgroup.com/api/marketdata/page/' + countryData[country].pageId + '?currency=,EUR,EUR,EUR&endDate=' + dateDay + '-' + dateMonth + '-' + dateYear;
         chrome.runtime.sendMessage(
             {
                 contentScriptQuery: "getData"
@@ -64,11 +69,13 @@ async function getCurrentPrice() {
                 console.log(jsonData);
                 let price = getPriceFromJson(jsonData);
                 // Round to 5 decimals
-                
+                console.log('Price: ' + price);
                 // Add the newtork price to the price
                 let networkPrice = parseFloat(document.getElementById('networkPrice').value);
-                let totalPrice = Math.round((price + networkPrice) * 100000) / 100000;
+                let totalPrice = Math.round((price + networkPrice) * 10000) / 10000;
                 document.getElementById('elPrice').value = totalPrice;
+                chrome.storage.sync.set({'elPrice': totalPrice}, function() {
+                });
             });
     });
 }
@@ -96,7 +103,6 @@ function getPriceFromJson(jsonData) {
         // Price is in EUR/MWh
         return parseFloat(row.Columns[0].Value.replace(',', '.')) / 1000;
     }
-
 }
 
 updateSelectedTVModel();
