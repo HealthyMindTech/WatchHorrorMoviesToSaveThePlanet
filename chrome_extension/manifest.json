@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "MovieZap",
+    "name": "Watch Horror Movies To Save The Planet (WHMTSTP)",
     "version": "1.0.0",
     "content_scripts": [
         {
