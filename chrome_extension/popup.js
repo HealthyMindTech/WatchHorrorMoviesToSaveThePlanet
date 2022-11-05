@@ -13,7 +13,7 @@ const countryData = {
     NL: {pageId: 299571, hourDiff: 0},
     SE: {pageId: 29, entityName: 'SE3', hourDiff: 0},
     NO: {pageId: 23, entityName: 'Oslo', hourDiff: 0}
-  }
+}
 
 function setTVModel(event) {
     chrome.storage.sync.set({'tvModel': event.target.value}, function() {
