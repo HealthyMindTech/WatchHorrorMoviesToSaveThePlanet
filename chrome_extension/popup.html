@@ -35,7 +35,20 @@
                 placeholder="0.00"
                 />
         </div>
-        <div>
+        <div style="border: 1px solid black">
+            <label
+                for="networkPrice"
+                id="networkPriceLabel"
+                >Network Price (&euro; per kWh)</label>
+            <input
+                id="networkPrice"
+                name="networkPrice"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+                />
+            <div>+</div>
             <label for="country">Select country</label>
             <select
                 id="countrySelect"
@@ -54,7 +67,8 @@
                 <option value="AT">Austria</option>
                 <option value="FR">France</option>
             </select>
-            <button id="getPriceButton">Get price</button>
+            
+            <button id="getPriceButton">Get current spot price</button>
         </div>
         <script src="popup.js"></script>
     </body>

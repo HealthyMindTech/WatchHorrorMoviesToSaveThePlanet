@@ -64,8 +64,12 @@ async function getCurrentPrice() {
                 console.log(jsonData);
                 let price = getPriceFromJson(jsonData);
                 // Round to 5 decimals
-                price = Math.round(price * 100000) / 100000;
-                document.getElementById('elPrice').value = price;
+                
+                // Add the newtork price to the price
+                let networkPrice = document.getElementById('networkPrice').value;
+                console.log('Network price: ' + networkPrice);
+                let totalPrice = Math.round((price + networkPrice) * 100000) / 100000;
+                document.getElementById('elPrice').value = totalPrice;
             });
         // Set to no-cors to avoid CORS errors
         // let response = await fetch(url, {mode: 'no-cors'});
