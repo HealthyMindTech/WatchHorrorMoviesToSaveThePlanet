@@ -1,9 +1,9 @@
 {
     "manifest_version": 3,
-    "name": "Watch Horror Movies To Save The Planet (WHMTSTP)",
+    "name": "Watch Horror Movies To Save The Planet",
     "version": "1.0.0",
     "content_scripts": [
-        {   
+        {
             "css": ["netflix.css"],
             "js": ["movieData.js", "netflix.js"],
             "matches": ["https://www.netflix.com/*"]
@@ -14,8 +14,7 @@
     },
     "host_permissions": ["https://www.nordpoolgroup.com/api/*"],
     "permissions": [
-        "tabs",
-        "storage"
+      "storage"
     ],
     "icons": { "16": "icons/icon_with_rounded_16.png",
                 "48": "icons/icon_with_rounded_48.png",

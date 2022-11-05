@@ -78,11 +78,20 @@ function scoreAllTitles() {
   // console.log("Scoring in progress...");
   chrome.storage.sync.get(["elPrice", "tvModel"], function (data) {
     let resetScore = false;
-    if (scoringPrice !== data.elPrice || scoringTvModel !== data.tvModel) {
+    let elPrice = data.elPrice;
+    if (elPrice == null || elPrice !== elPrice) {
+      elPrice = scoringPrice;
+    }
+    let tvModel = data.tvModel;
+    if (tvModel == null) {
+      tvModel = scoringTvModel;
+    }
+
+    if (scoringPrice !== elPrice || scoringTvModel !== tvModel) {
       console.log("Price or model changed, re-scoring all titles");
       resetScore = true;
-      scoringPrice = data.elPrice;
-      scoringTvModel = data.tvModel;
+      scoringPrice = elPrice;
+      scoringTvModel = tvModel;
     }
     // Detect all titles on the page
     let titles = getAllTitleElements(resetScore);
