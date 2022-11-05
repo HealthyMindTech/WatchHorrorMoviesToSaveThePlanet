@@ -1,6 +1,6 @@
 # Watch Horror Movies To Save The Planet (WHMTSTP)
 
-![Extension in action](https://github.com/HealthyMindTech/WatchHorrorMoviesToSaveThePlanet/blob/master/docs/image.jpg?raw=true)
+![Extension in action](https://github.com/HealthyMindTech/WatchHorrorMoviesToSaveThePlanet/blob/master/docs/image.png?raw=true)
 
 # Installation instructions
 
