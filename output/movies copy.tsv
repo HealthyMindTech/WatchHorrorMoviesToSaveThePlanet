@@ -1,4 +1,4 @@
-#title	runtime	rating	genre	image_path	imdb_url	soup_url	type
+#title, runtime, rating, genre, image_path, imdb_url, soup_url, type
 Star Wars: Episode VIII - The Last Jedi	9120	6.9	Action, Adventure, Fantasy, Sci-Fi	./images/Star_Wars:_Episode_VIII_-_The_Last_Jedi_(2017).jpg	https://www.imdb.com/title/tt2527336/	https://moviebarcode.tumblr.com/page/1	movie
 Star Wars: Episode VIII - The Last Jedi	9120	6.9	Action, Adventure, Fantasy, Sci-Fi	./images/Sequence_from:_Star_Wars:_Episode_VIII_-_The_Last_Jedi_(2017).jpg	https://www.imdb.com/title/tt2527336/	https://moviebarcode.tumblr.com/page/1	movie
 And Then There Were None	5820	7.4	Crime, Drama, Mystery, Thriller	./images/And_Then_There_Were_None_(1945).jpg	http://www.imdb.com/title/tt0037515/	https://moviebarcode.tumblr.com/page/1	movie
