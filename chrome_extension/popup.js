@@ -86,7 +86,7 @@ async function getCurrentPrice() {
           document.getElementById("networkPrice").value
         );
         let totalPrice =
-          Math.round((price + (networkPrice || 0.0)) * 10000) / 10000;
+            Math.round((price + (networkPrice || 0.0)) * 10000) / 10000;
         document.getElementById("elPrice").value = totalPrice;
         chrome.storage.sync.set({ elPrice: totalPrice }, function () {});
       }

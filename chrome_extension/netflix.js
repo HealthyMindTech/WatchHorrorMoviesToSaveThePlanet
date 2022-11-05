@@ -68,65 +68,58 @@ let scoringInProgress = false;
 let scoringPrice = 0.1; // If the price or model changes, re-score all titles
 let scoringTvModel = "LG OLED55BXPUA";
 
-async function scoreAllTitles() {
-  if (!scoringInProgress) {
-    console.log("Scoring in progress...");
-    scoringInProgress = true;
-    chrome.storage.sync.get(["elPrice", "tvModel"], async function (data) {
-      let resetScore = false;
-      if (scoringPrice != data.elPrice || scoringTvModel != data.tvModel) {
-        console.log("Price or model changed, re-scoring all titles");
-        resetScore = true;
-        scoringPrice = data.elPrice;
-        scoringTvModel = data.tvModel;
-      }
-      // Detect all titles on the page
-      let titles = getAllTitleElements(resetScore);
+function scoreAllTitles() {
+  console.log("Scoring in progress...");
+  chrome.storage.sync.get(["elPrice", "tvModel"], function (data) {
+    let resetScore = false;
+    if (scoringPrice !== data.elPrice || scoringTvModel !== data.tvModel) {
+      console.log("Price or model changed, re-scoring all titles");
+      resetScore = true;
+      scoringPrice = data.elPrice;
+      scoringTvModel = data.tvModel;
+    }
+    // Detect all titles on the page
+    let titles = getAllTitleElements(resetScore);
 
-      if (!titles.length) {
-        return;
-      }
+    if (!titles.length) {
+      return;
+    }
 
-      // Test database connection
-      const escapedTitles = []
-      for (const titleElement of titles) {
-        const title = titleElement.getAttribute("aria-label");
-        if (title.indexOf('"') === -1) {
-          escapedTitles.push(`"${title}"`);
+    // Test database connection
+    const escapedTitles = []
+    for (const titleElement of titles) {
+      const title = titleElement.getAttribute("aria-label");
+      if (title.indexOf('"') === -1) {
+        escapedTitles.push(`"${title}"`);
+      }
+    }
+
+    const allTitles = encodeURIComponent(escapedTitles.join(','));
+
+    let url = `http://34.88.229.226:3000/movies?title=in.(${allTitles})`;
+    console.log(url);
+    chrome.runtime.sendMessage(
+      {
+        contentScriptQuery: "getData",
+        url: url,
+      },
+      (jsonData) => {
+        const indexedData = {}
+        for (const i of jsonData) {
+          indexedData[i.title] = i;
         }
-      }
+        let tvData = tvModels[scoringTvModel];
+        // Score all new titles
+        for (let i = 0; i < titles.length; i++) {
+          const titleElement = titles[i];
+          const title = titleElement.getAttribute('aria-label');
+          const movieData = indexedData[title]
+          insertScoreOnThumbnail(titleElement, movieData, tvData, scoringPrice);
+        }
+      });
 
-      const allTitles = encodeURIComponent(escapedTitles.join(','));
-
-      let url = `http://34.88.229.226:3000/movies?title=in.(${allTitles})`;
-      console.log(url);
-      chrome.runtime.sendMessage(
-        {
-          contentScriptQuery: "getData",
-          url: url,
-        },
-        (jsonData) => {
-          const indexedData = {}
-          for (const i of jsonData) {
-            indexedData[i.title] = i;
-          }
-          let tvData = tvModels[scoringTvModel];
-          // Score all new titles
-          for (let i = 0; i < titles.length; i++) {
-            const titleElement = titles[i];
-            const title = titleElement.getAttribute('aria-label');
-            const movieData = indexedData[title]
-            insertScoreOnThumbnail(titleElement, movieData, tvData, scoringPrice);
-          }
-        });
-
-      // Ignore titles that have already been scored.
-      // titles = Array.from(titles).filter(title => !scoredTitles.has(title.getAttribute('aria-label')));
-
-      scoringInProgress = false;
-      console.log("Scoring done.");
-    });
-  }
+    console.log("Scoring done.");
+  });
 }
 
 (async function main() {
