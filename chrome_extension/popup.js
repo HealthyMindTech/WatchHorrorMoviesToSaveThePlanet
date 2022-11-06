@@ -120,14 +120,19 @@ function getPriceFromJson(jsonData) {
   // Currenthour is 0-23
   // Should be like this but in CET timezone
   // new Date().toISOString().slice(0, 13) + ':00:00'
-  let currentCETTime =
-    new Date()
-      .toLocaleString("sv", {
-        timeZoneName: "short",
-        timeZone: "Europe/Berlin",
-      })
-      .slice(0, 13) + ":00:00";
-  currentCETTime = currentCETTime.replace(" ", "T");
+  let time = new Date().toLocaleString("sv", {
+    timeZoneName: "short",
+    timeZone: "Europe/Berlin",
+  });
+
+  let datePart = time.slice(0, 10);
+  let hour = /^\d+/.exec(time.slice(11));
+  if (hour.length === 1) {
+    hour = '0' + hour;
+  }
+
+  let currentCETTime = `${datePart}T${hour}:00:00`;
+  console.log(currentCETTime);
 
   let row = jsonData.data.Rows.find((row) => row.StartTime === currentCETTime);
   if (row) {
