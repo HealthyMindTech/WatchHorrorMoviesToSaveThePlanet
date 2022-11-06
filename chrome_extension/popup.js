@@ -127,11 +127,9 @@ function getPriceFromJson(jsonData) {
 
   let datePart = time.slice(0, 10);
   let hour = /^\d+/.exec(time.slice(11));
-  if (hour.length === 1) {
-    hour = '0' + hour;
-  }
+  const hourNumber = hour[0].length === 1 ? '0' + hour[0] : hour[0]
 
-  let currentCETTime = `${datePart}T${hour}:00:00`;
+  let currentCETTime = `${datePart}T${hourNumber}:00:00`;
   console.log(currentCETTime);
 
   let row = jsonData.data.Rows.find((row) => row.StartTime === currentCETTime);
